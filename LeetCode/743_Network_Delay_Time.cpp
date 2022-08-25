@@ -130,8 +130,7 @@ public:
 };
 
 void solve() {
-	Solution solution();
-	cout << solution.networkDelayTime();
+	
 }
 
 int main() {
