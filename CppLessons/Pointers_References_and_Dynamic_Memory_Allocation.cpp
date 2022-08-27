@@ -22,13 +22,17 @@ int& squareRefLocalDynamically(int);
 int *p15, *p16;
 void allocate();
 
+void fun(const int *arr, int size);
+
+int sum(const int *begin, const int *end);
+
 int main() {
 	// https://www3.ntu.edu.sg/home/ehchua/programming/cpp/cp4_PointerReference.html
-	
+
 	// --- POINTER VARIABLES ---
-	
+
 	// Pointer (variable) stores a memory address
-	
+
 	int *ptr;
 	int *ptr2, *ptr3, i; // ptr2, ptr3 are pinters, i - is integer
 	// Naming convention of pointers:
@@ -36,7 +40,7 @@ int main() {
 
 
 	// Initializing Pointers via the Address-Of Operator
-	
+
 	// When you declare a pointer variable, its content is not initialized.
 	// In other words, it contains an address of "somewhere", which is of course not a valid location.
 	// This is dangerous! You need to initialize a pointer by assigning it a valid address.
@@ -52,7 +56,7 @@ int main() {
 
 
 	// Indirection or Dereferencing Operator (*)
-	
+
 	// The indirection operator (or dereferencing operator) (*) operates on a pointer,
 	// and returns the value stored in the address kept in the pointer variable.
 	// For example, if pNumber is an int pointer, *pNumber returns the int value
@@ -68,10 +72,10 @@ int main() {
 	// Pointer has a Type Too
 
 	/*
-	 A pointer is associated with a type (of the value it points to),
-	 which is specified during declaration.
-	 A pointer can only hold an address of the declared type;
-	 it cannot hold an address of a different type.
+	A pointer is associated with a type (of the value it points to),
+	which is specified during declaration.
+	A pointer can only hold an address of the declared type;
+	it cannot hold an address of a different type.
 	*/
 
 	int t = 88;
@@ -96,7 +100,7 @@ int main() {
 	int *ptr5 = 0;
 	int *ptr6 = NULL;
 	int *ptr7 = nullptr;
-	
+
 	// cout << *ptr5 << endl;
 	// Dereferencing a null pointer (*p) causes an STATUS_ACCESS_VIOLATION exception.
 
@@ -107,7 +111,7 @@ int main() {
 	// References (or Aliases) (&)
 	int number2 = 88;           // Declare an int variable called number
 	int& refNumber2 = number2;  // Declare a reference (alias) to the variable number
-                            	// Both refNumber and number refer to the same value
+	                         	// Both refNumber and number refer to the same value
 
 	cout << number2 << endl;    // Print value of variable number (88)
 	cout << refNumber2 << endl; // Print value of reference (88)
@@ -120,7 +124,7 @@ int main() {
 	cout << number2 << endl;
 	cout << refNumber2 << endl; // Value of refNumber also changes (55)
 
-	
+
 	// Pass-By-Reference into Functions with Reference Arguments vs. Pointer Arguments
 
 	// Pass-by-value	
@@ -136,15 +140,15 @@ int main() {
 	// (especially in passing huge object or array)
 	// to avoid the overhead of cloning.
 
-    int number3 = 8;
+	 int number3 = 8;
 	cout << "In main(): " << &number3 << endl; // 0x22ff1c
 	cout << number3 << endl; // 8
 	squareWithPointer(&number3); // Explicit referencing to pass an address
 	cout << number3 << endl; // 64
 
-	
+
 	// Pass-by-Reference with Reference Arguments
-	
+
 	// Instead of passing pointers into function,
 	// you could also pass references into function,
 	// to avoid the clumsy syntax of referencing and dereferencing
@@ -168,7 +172,7 @@ int main() {
 
 
 	// "const" Function Reference/Pointer Parameters
-	
+
 	// A const function formal parameter cannot be modified
 	// inside the function.
 	// A const function parameter can receive both const 
@@ -240,13 +244,13 @@ int main() {
 
 	// In pass-by-value, a clone is made and passed into the function.
 	// The caller's copy cannot be modified.
-	
+
 	// In pass-by-reference, a pointer is passed into the function.
 	// The caller's copy could be modified inside the function.
 
 	// In pass-by-reference with reference arguments,
 	// you use the variable name as the argument.
-	
+
 	// In pass-by-reference with pointer arguments,
 	// you need to use &varName (an address) as the argument.
 
@@ -258,7 +262,7 @@ int main() {
 
 	// Instead of static allocation, the storage can be dynamically allocated
 	// at runtime, via a new operator.
-	
+
 	// Whenever you allocate a piece of memory dynamically via new,
 	// you need to use delete to remove the storage.
 
@@ -267,11 +271,12 @@ int main() {
 	int* pNumber11 = &number11;  // Assign a "valid" address into pointer
 
 	// Dynamic allocation
+	cout << endl;
 	cout << "Dyncamic allocation" << endl;
 	int* p12;             // Not initialize, points to somewhere which is invalid
 	cout << p12 << endl;  // Print address before allocation
 	p12 = new int;        // Dynamically allocate an int and assign its address to pointer
-	                      // The pointer gets a valid address with memory allocated
+	                   // The pointer gets a valid address with memory allocated
 	cout << p12 << endl;  // Print address after allocation
 
 	*p12 = 99;
@@ -302,45 +307,156 @@ int main() {
 	// Dynamically allocated storage inside the function remains even after the function exits.
 
 	allocate();
+	cout << endl;
 	cout << "allocate()" << endl;
-   cout << *p15 << endl;  // 88
-   cout << *p16 << endl;  // 99
-   delete p15; // Deallocate
-   delete p16;
+	cout << *p15 << endl;  // 88
+	cout << *p16 << endl;  // 99
+	delete p15; // Deallocate
+	delete p16;
 
-   
-   // Static allocation and dynamic allocation differences
 
-   // 1. In static allocation, the compiler allocates and deallocates the storage automatically,
-   // and handle memory management.
-   // Whereas in dynamic allocation, you, as the programmer,
-   // handle the memory allocation and deallocation yourself (via new and delete operators).
-   // You have full control on the pointer addresses and their contents, as well as memory management.
+	// Static allocation and dynamic allocation differences
 
-   // 2. Static allocated entities are manipulated through named variables.
-   // Dynamic allocated entities are handled through pointers.
+	// 1. In static allocation, the compiler allocates and deallocates the storage automatically,
+	// and handle memory management.
+	// Whereas in dynamic allocation, you, as the programmer,
+	// handle the memory allocation and deallocation yourself (via new and delete operators).
+	// You have full control on the pointer addresses and their contents, as well as memory management.
 
-   
-   // new[] and delete[] Operators
-   
-   // Dynamic array is allocated at runtime rather than compile-time, via the new[] operator.
-   // To remove the storage, you need to use the delete[] operator (instead of simply delete).
+	// 2. Static allocated entities are manipulated through named variables.
+	// Dynamic allocated entities are handled through pointers.
 
-   const int SIZE = 5;
-   int * pArray;
-   pArray = new int[SIZE];  // Allocate array via new[] operator
 
-   // Assign random numbers between 0 and 99
-   for (int i = 0; i < SIZE; ++i) {
-      *(pArray + i) = rand() % 100;
-   }
-   // Print array
-   for (int i = 0; i < SIZE; ++i) {
-      cout << *(pArray + i) << " ";
-   }
-   cout << endl;
- 
-   delete[] pArray;  // Deallocate array via delete[] operator
+	// new[] and delete[] Operators
+
+	// Dynamic array is allocated at runtime rather than compile-time, via the new[] operator.
+	// To remove the storage, you need to use the delete[] operator (instead of simply delete).
+
+	const int SIZE = 5;
+	int * pArray;
+	pArray = new int[SIZE];  // Allocate array via new[] operator
+
+	// Assign random numbers between 0 and 99
+	for (int i = 0; i < SIZE; ++i) {
+	*(pArray + i) = rand() % 100;
+	}
+
+	cout << endl;
+	for (int i = 0; i < SIZE; ++i) {
+	cout << *(pArray + i) << " ";
+	}
+	cout << endl;
+
+	delete[] pArray;  // Deallocate array via delete[] operator
+
+
+
+	// --- Pointer, Array and Function ---
+
+	// Array is Treated as Pointer
+	int numbers[SIZE] = {0,1,2,3,4};
+	// The array name numbers is an int pointer, pointing at the
+	// first item of the array, i.e., numbers = &numbers[0]
+
+	cout << endl;
+	cout << &numbers[0] << endl; // Print address of first element
+	cout << numbers << endl;     // Same as above
+	cout << *numbers << endl;         // numbers[0]
+	cout << *(numbers + 1) << endl;   // numbers[1]
+	cout << *(numbers + 4) << endl;   // numbers[4]
+
+	// sizeof Array
+
+	// The operation sizeof(arrayName) returns the total bytes of the array.
+	// You can derive the length (size) of the array by dividing it with the size of an element (e.g. element 0).
+
+	int numbers2[100];
+	cout << endl;
+	cout << sizeof(numbers2) << endl;     // Size of entire array in bytes (400)
+	cout << sizeof(numbers2[0]) << endl;  // Size of first element of the array in bytes (4)
+	cout << "Array size is " << sizeof(numbers2) / sizeof(numbers2[0]) << endl;  // (100)
+
+
+	// Passing Array In/Out of a Function
+
+	// An array is passed into a function as a pointer to the first element of the array.
+	// You can use array notation (e.g., int[]) or pointer notation (e.g., int*) in the function declaration.
+	// The compiler always treats it as pointer (e.g., int*).
+	// The following declarations are equivalent:
+	int max(int numbers[], int size);
+	int max(int* numbers, int size);
+	int max(int number[50], int size);
+
+	// They will be treated as int* by the compiler, as follow.
+	// The size of the array given in [] is ignored.
+	int max(int*, int);
+
+	// You could declare the array parameter as const to prevent 
+	// the array from being modified inside the function.
+
+	// The size of the array is not part of the array parameter,
+	// and needs to be passed in another int parameter.
+	// Compiler is not able to deduce the array size from the array pointer,
+	// and does not perform array bound check.
+
+
+	// Pass-by-Reference and sizeof
+	int a[SIZE] = {8, 4, 5, 3, 2};
+	cout << endl;
+	cout << "sizeof in main() is " << sizeof(a) << endl;
+	cout << "address in main() is " << a << endl;
+	fun(a, SIZE);
+
+	// In main(), the sizeof array is 20 (4 bytes per int, length of 5).
+	// Inside the function, the sizeof is 4, which is the sizeof int pointer (4-byte address).
+	// This is why you need to pass the size into the function.
+
+
+	// Operating on a Range of an Array
+	int b[] = {8, 4, 5, 3, 2, 1, 4, 8};
+	cout << sum(b, b+8) << endl;        // b[0] to b[7]
+	cout << sum(b+2, b+5) << endl;      // b[2] to b[4]
+	cout << sum(&b[2], &b[5]) << endl;  // b[2] to b[4]
+
+
+	// In "const int *p", *p (content pointed-to) is constant, but p is not constant.
+
+	// 1. Non-constant pointer to constant data:
+	// Data pointed to CANNOT be changed;
+	// but pointer CAN be changed to point to another data.
+
+	int i1 = 8, i2 = 9;
+	const int* iptr = &i1; // non-constant pointer pointing to constant data
+	// *iptr = 9; // error: assignment of read-only location
+	iptr = &i2; // okay
+
+	// 2. Constant pointer to non-constant data:
+	// Data pointed to CAN be changed;
+	// but pointer CANNOT be changed to point to another data.
+
+	int i3 = 8, i4 = 9;
+	int* const iptr2 = &i1;  // constant pointer pointing to non-constant data
+	   // constant pointer must be initialized during declaration
+	*iptr2 = 9; // okay
+	// iptr2 = &i2; // error: assignment of read-only variable
+
+	// 3. Constant pointer to constant data:
+	// Data pointed to CANNOT be changed;
+	// and pointer CANNOT be changed to point to another data.
+
+	int i5 = 8, i6 = 9;
+	const int* const iptr3 = &i1;  // constant pointer pointing to constant data
+	// *iptr3 = 9;   // error: assignment of read-only variable
+	// iptr3 = &i2;  // error: assignment of read-only variable
+
+	// 4. Non-constant pointer to non-constant data:
+	// Data pointed to CAN be changed;
+	// and pointer CAN be changed to point to another data.
+
+	int i7 = 8, i8 = 9;
+	int* iptr4 = &i1;  // non-constant pointer pointing to non-constant data
+	*iptr4 = 9;   // okay
+	iptr4 = &i2;  // okay
 
 	return 0;
 }
@@ -420,4 +536,21 @@ void allocate() {
 	p15 = new int;
 	*p15 = 88;
 	p16 = new int(99);
+}
+
+
+
+void fun(const int *arr, int size) {
+   cout << "sizeof in function is " << sizeof(arr) << endl;
+   cout << "address in function is " << arr << endl;
+}
+
+
+
+int sum(const int* begin, const int* end) {
+   int sum = 0;
+   for (const int *p = begin; p != end; ++p) {
+      sum += *p;
+   }
+   return sum;
 }
