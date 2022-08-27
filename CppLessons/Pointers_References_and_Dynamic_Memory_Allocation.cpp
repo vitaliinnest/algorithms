@@ -18,6 +18,10 @@ int& squareRefLocal(int);
 int* squarePtrLocalDynamically(int);
 int& squareRefLocalDynamically(int);
 
+// Global int pointers
+int *p15, *p16;
+void allocate();
+
 int main() {
 	// https://www3.ntu.edu.sg/home/ehchua/programming/cpp/cp4_PointerReference.html
 	
@@ -77,16 +81,13 @@ int main() {
 
 
 	// Uninitialized Pointers
-	int * ptr4;
-	*ptr4 = 55; // !!! DON'T DO THIS
+	// int * ptr4;
+	// *ptr4 = 55; // !!! DON'T DO THIS
 
 	// The pointer iPtr was declared without initialization, i.e.,
 	// it is pointing to "somewhere" which is of course an invalid memory location.
 	// The *iPtr = 55 corrupts the value of "somewhere"!
 	// You need to initialize a pointer by assigning it a valid address.
-
-	cout << ptr4 << endl;
-	cout << *ptr4 << endl;
 
 
 	// Null Pointers
@@ -286,8 +287,6 @@ int main() {
 	// To initialize the dynamically allocated memory,
 	// you can use an initializer for fundamental types,
 	// or invoke a constructor for an object.
-	// use an initializer to initialize a fundamental type
-	// (such as int, double)
 	int* p13 = new int(88); // or {88}
 	double* p14 = new double(1.23); // or {1.23}
 	delete p13;
@@ -296,8 +295,52 @@ int main() {
 	// invoke a constructor to initialize an object (such as Date, Time)
 	// Date* date1 = new Date(1999, 1, 1);
 	// Time* time1 = new Time(12, 34, 56);
+	// delete date1;
+	// delete time1;
 
+	// You can dynamically allocate storage for global pointers inside a function.
+	// Dynamically allocated storage inside the function remains even after the function exits.
 
+	allocate();
+	cout << "allocate()" << endl;
+   cout << *p15 << endl;  // 88
+   cout << *p16 << endl;  // 99
+   delete p15; // Deallocate
+   delete p16;
+
+   
+   // Static allocation and dynamic allocation differences
+
+   // 1. In static allocation, the compiler allocates and deallocates the storage automatically,
+   // and handle memory management.
+   // Whereas in dynamic allocation, you, as the programmer,
+   // handle the memory allocation and deallocation yourself (via new and delete operators).
+   // You have full control on the pointer addresses and their contents, as well as memory management.
+
+   // 2. Static allocated entities are manipulated through named variables.
+   // Dynamic allocated entities are handled through pointers.
+
+   
+   // new[] and delete[] Operators
+   
+   // Dynamic array is allocated at runtime rather than compile-time, via the new[] operator.
+   // To remove the storage, you need to use the delete[] operator (instead of simply delete).
+
+   const int SIZE = 5;
+   int * pArray;
+   pArray = new int[SIZE];  // Allocate array via new[] operator
+
+   // Assign random numbers between 0 and 99
+   for (int i = 0; i < SIZE; ++i) {
+      *(pArray + i) = rand() % 100;
+   }
+   // Print array
+   for (int i = 0; i < SIZE; ++i) {
+      cout << *(pArray + i) << " ";
+   }
+   cout << endl;
+ 
+   delete[] pArray;  // Deallocate array via delete[] operator
 
 	return 0;
 }
@@ -369,4 +412,12 @@ int* squarePtrLocalDynamically(int number) {
 int& squareRefLocalDynamically(int number) {
    int* dynamicAllocatedResult = new int(number * number);
    return *dynamicAllocatedResult;
+}
+
+
+
+void allocate() {
+	p15 = new int;
+	*p15 = 88;
+	p16 = new int(99);
 }
