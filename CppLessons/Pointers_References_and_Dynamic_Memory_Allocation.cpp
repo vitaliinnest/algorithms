@@ -1,13 +1,14 @@
 #include <bits/stdc++.h>
+
 using namespace std;
 
-void squareWithPointer(int* pNumber);
-void squareWithReference(int& rNumber);
+void squareWithPointer(int*);
+void squareWithReference(int&);
 
 int squareConst(const int);
 int squareNonConst(int);
-int squareConstRef(const int &);
-int squareNonConstRef(int &);
+int squareConstRef(const int&);
+int squareNonConstRef(int&);
 
 int& squareRef(int&);
 int* squarePtr(int*);
@@ -22,9 +23,9 @@ int& squareRefLocalDynamically(int);
 int *p15, *p16;
 void allocate();
 
-void fun(const int *arr, int size);
+void fun(const int*, int);
 
-int sum(const int *begin, const int *end);
+int sum(const int*, const int*);
 
 int main() {
 	// https://www3.ntu.edu.sg/home/ehchua/programming/cpp/cp4_PointerReference.html
