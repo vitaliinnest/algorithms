@@ -24,6 +24,27 @@ typedef vector<pl> vpl;
 typedef vector<vi> vvi;
 typedef vector<vl> vvl;
 
+class Solution {
+public:
+    int singleNumber(vector<int>& nums) {
+        int res=0;
+        for(int n:nums){
+            res^=n;
+        }
+        return res;
+    }
+};
+
+void solve() {
+    int n;
+    vi nums;
+    while (cin >> n) {
+        nums.pb(n);
+    }
+    Solution s;
+    cout << s.singleNumber(nums);
+}
+
 int main() {
 #ifndef ONLINE_JUDGE
     freopen("input.txt", "r", stdin);
@@ -32,6 +53,6 @@ int main() {
     ios_base::sync_with_stdio(0);
     cin.tie(0);
     cout.tie(0);
-    
+    solve();
     return 0;
 }

@@ -24,6 +24,30 @@ typedef vector<pl> vpl;
 typedef vector<vi> vvi;
 typedef vector<vl> vvl;
 
+class Solution {
+public:
+    int missingNumber(vector<int>& nums) {
+        int res = 0;
+        for (int n : nums) {
+            res ^= n;
+        }
+        for (int i=0; i<=nums.size();i++) {
+            res ^= i;
+        }
+        return res;
+    }
+};
+
+void solve() {
+    vi nums;
+    int n;
+    while (cin >> n) {
+        nums.pb(n);
+    }
+    Solution s;
+    cout << s.missingNumber(nums);
+}
+
 int main() {
 #ifndef ONLINE_JUDGE
     freopen("input.txt", "r", stdin);
@@ -32,6 +56,6 @@ int main() {
     ios_base::sync_with_stdio(0);
     cin.tie(0);
     cout.tie(0);
-    
+    solve();
     return 0;
 }

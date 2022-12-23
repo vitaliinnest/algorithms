@@ -24,6 +24,34 @@ typedef vector<pl> vpl;
 typedef vector<vi> vvi;
 typedef vector<vl> vvl;
 
+class Solution {
+public:
+    vector<int> findDisappearedNumbers(vector<int>& nums) {
+        vector<int> res;
+        for(int i=0;i<nums.size();i++){
+            int j=abs(nums[i])-1;
+            nums[j]=-abs(nums[j]);
+        }
+        for(int i=0;i<nums.size();i++){
+            if(nums[i]>0) res.push_back(i+1);
+        }
+        return res;
+    }
+};
+
+void solve() {
+    int n;
+    vi nums;
+    while (cin >> n) {
+        nums.pb(n);
+    }
+    Solution s;
+    vi res = s.findDisappearedNumbers(nums);
+    for (int t : res) {
+        cout << t << " ";
+    }
+}
+
 int main() {
 #ifndef ONLINE_JUDGE
     freopen("input.txt", "r", stdin);
@@ -32,6 +60,6 @@ int main() {
     ios_base::sync_with_stdio(0);
     cin.tie(0);
     cout.tie(0);
-    
+    solve();
     return 0;
 }

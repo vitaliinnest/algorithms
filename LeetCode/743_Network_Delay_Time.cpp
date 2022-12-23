@@ -1,6 +1,3 @@
-/*Author: vitaliiiiin*/
-/*Vitalii Nesterenko*/
-
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -39,6 +36,10 @@ typedef vt<vi> 				vvi;
 typedef vt<vl> 				vvl;
 typedef vt<string> 			vs;
 typedef vt<vs> 				vvs;
+typedef vt<pi> 				vpi;
+typedef vt<pll> 			vpll;
+typedef map<int,int>		mi;
+typedef map<ll,ll>			mll;
 
 template<class A> void read(vt<A>& v);
 template<class A, size_t S> void read(array<A,S>& a);
@@ -122,15 +123,49 @@ template<class H, class... T> void print(const H& h, const T&... t) {
 	print(t...);
 }
 
+// https://leetcode.com/problems/network-delay-time/
 class Solution {
+private:
+	// set<int>
+	priority_queue<int,vi,greater<int> > pq;
+	map<int,vt<pi>> buildAdjacencyList(const vvi& times) {
+		map<int,vt<pi>> adjList;
+		for (auto edge : times) {
+			// [u] = [(v,w)]
+			adjList[edge[0]].pb(mp(edge[1], edge[2]));
+		}
+		return adjList;
+	}
+	void djikstra(const map<int,vpi>& adjList) {
+		pq.push(2);
+		pq.push(3);
+		cout << pq.top() << " ";
+	}
 public:
     int networkDelayTime(vector<vector<int>>& times, int n, int k) {
-        return 0;
+    	map<int,vpi> adjList = buildAdjacencyList(times);
+    	return 0;
     }
 };
 
 void solve() {
-	
+	int v, n, k;
+	// v - vertices
+	// n - edges
+	// k - starting vertex
+	cin >> v;
+	//times[i] = vector(3) (u,v,w)
+	vvi times(v);
+	for (int i = 0; i < v; ++i) {
+		vi path(3);
+		for (int j = 0; j < 3; ++j) {
+			cin >> path[j];
+		}
+		times.pb(path);
+	}
+	cin >> n >> k;
+	Solution sol;
+	cout << sol.networkDelayTime(times, n, k);
 }
 
 int main() {

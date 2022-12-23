@@ -24,6 +24,30 @@ typedef vector<pl> vpl;
 typedef vector<vi> vvi;
 typedef vector<vl> vvl;
 
+const int MAXN = 10000;
+vi adj[MAXN];
+bool visited[MAXN];
+
+void dfs(int v) {
+    if (visited[v]) {
+        return;
+    }
+    visited[v] = true;
+    cout << v << " ";
+    for (int u : adj[v]) {
+        dfs(u);
+    }
+}
+
+void solve() {
+    adj[1].push_back(2);
+    adj[2].push_back(3);
+    adj[2].push_back(4);
+    adj[3].push_back(4);
+    adj[4].push_back(1);
+    dfs(1);
+}
+
 int main() {
 #ifndef ONLINE_JUDGE
     freopen("input.txt", "r", stdin);
@@ -32,6 +56,6 @@ int main() {
     ios_base::sync_with_stdio(0);
     cin.tie(0);
     cout.tie(0);
-    
+    solve();
     return 0;
 }

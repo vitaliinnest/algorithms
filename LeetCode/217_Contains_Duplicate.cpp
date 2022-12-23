@@ -24,6 +24,31 @@ typedef vector<pl> vpl;
 typedef vector<vi> vvi;
 typedef vector<vl> vvl;
 
+class Solution {
+public:
+    bool containsDuplicate(vector<int>& nums) {
+        unordered_set<int> s;
+        for (int n : nums) {
+            if (!s.count(n)) {
+                s.insert(n);
+            } else {
+                return true;
+            }
+        }
+        return false;
+    }
+};
+
+void solve() {
+    vi nums;
+    int n;
+    while (cin >> n) {
+        nums.push_back(n);
+    }
+    Solution s;
+    cout << s.containsDuplicate(nums);
+}
+
 int main() {
 #ifndef ONLINE_JUDGE
     freopen("input.txt", "r", stdin);
@@ -32,6 +57,6 @@ int main() {
     ios_base::sync_with_stdio(0);
     cin.tie(0);
     cout.tie(0);
-    
+    solve();
     return 0;
 }
