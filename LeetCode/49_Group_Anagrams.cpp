@@ -27,20 +27,6 @@ typedef vector<vl> vvl;
 // https://leetcode.com/problems/group-anagrams/
 class Solution {
 public:
-    bool isAnagram(string s, string t) {
-        if(s.size()!=t.size()) return false;
-        map<char,int> m;
-        for(int i=0;i<s.size();i++){
-            m[s[i]]++;
-        }
-        for(int i=0;i<t.size();i++){
-            m[t[i]]--;
-            if(m[t[i]]<0){
-                return false;
-            }
-        }
-        return true;
-    }
     vector<vector<string>> groupAnagrams(vector<string>& strs) {
         map<map<char,int>,vector<string>> m;
         for(string s:strs){
