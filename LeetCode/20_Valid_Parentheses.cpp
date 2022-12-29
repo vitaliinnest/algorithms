@@ -45,8 +45,7 @@ public:
             if(om.count(p)){
                 st.push(p);
             }else{
-                if(st.empty()) return false;
-                if(st.top()!=cm[p]){
+                if(st.empty() || st.top()!=cm[p]){
                     return false;
                 }
                 st.pop();
