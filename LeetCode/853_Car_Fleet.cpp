@@ -32,7 +32,9 @@ public:
         for(int i=0;i<position.size();i++){
             p[i]=make_pair(position[i],speed[i]);
         }
-        sort(p.begin(),p.end(),[](pair<int,int> &left, pair<int,int> &right){ return left.first > right.first; });
+        sort(p.begin(),p.end(),[](pair<int,int> &left, pair<int,int> &right){
+            return left.first > right.first;
+        });
         stack<float> s; // stack of unit of times it takes to arrive
         for(int i=0;i<p.size();i++){
             float t=(target - p[i].first) / (float)p[i].second;
