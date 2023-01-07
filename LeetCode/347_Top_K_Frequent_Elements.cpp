@@ -31,7 +31,7 @@ public:
         map<int,int> c; //number:count
         vector<vector<int>> q(nums.size()+1);
         for(int n:nums) c[n]++;
-        //basically reversed c to store count as a key and number as a value
+        // reversed c to store count as a key and number as a value
         for(auto p:c) q[p.second].push_back(p.first);
         vector<int> res;
         for(int i=q.size()-1;i>=0;i--)
